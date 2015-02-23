@@ -5,7 +5,6 @@ from kivy.app import App
 class FileClient(protocol.Protocol):
     def connectionMade(self):
         print "connected"
-        self.factory.sender = self
 
     def dataReceived(self, data):
         # get the file and call fileReceived
@@ -25,6 +24,7 @@ class FileFactory(protocol.ClientFactory):
 
 class Client(App):
     def __init__(self, port=8000, host="localhost"):
+        super(Client, self).__init__()
         self.factory = FileFactory()
         self.factory.protocol = FileClient
         self.port = port
@@ -39,3 +39,4 @@ class Client(App):
 
     def on_connection(self, connection):
         self.connection = connection
+        print "ccc"

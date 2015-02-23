@@ -21,6 +21,7 @@ class FileFactory(protocol.Factory):
 
 class Server(App):
     def __init__(self, port=8000):
+        super(Server, self).__init__()
         self.factory = FileFactory()
         self.factory.protocol = FileProtocol
         self.port = port
