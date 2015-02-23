@@ -1,5 +1,6 @@
 from twisted.internet import protocol
 from twisted.internet import reactor
+from kivy.app import App
 
 
 class FileProtocol(protocol.Protocol):
@@ -18,13 +19,12 @@ class FileFactory(protocol.Factory):
     pass
 
 
-class Server:
+class Server(App):
     def __init__(self, port=8000):
         self.factory = FileFactory()
         self.factory.protocol = FileProtocol
         self.port = port
 
-    def run(self):
+    def listen(self):
         reactor.listenTCP(self.port, self.factory)
-        reactor.run()
 
